@@ -16,7 +16,7 @@ router.get('/balance',authMiddleware , async (req,res) => {
         _id: userId
     })
     res.status(200).json({
-        message: `${user.firstName} your remaining balance is ${account.balance}`
+        balance: account.balance
     })
 })
 
@@ -28,6 +28,7 @@ router.post('/transfer', authMiddleware, async (req, res) => {
     session.startTransaction();
 
     const {amount, receiverId} = req.body;
+    console.log(req.body)
 
     const senderAccount = await Account.findOne({
         userId: senderId,
@@ -75,7 +76,7 @@ router.post('/transfer', authMiddleware, async (req, res) => {
     await session.commitTransaction();
 
     res.status(200).json({
-        message: `transfer successful! your remaining balance is ${sender.balance}`
+        balance : sender.balance
     })
 })
 

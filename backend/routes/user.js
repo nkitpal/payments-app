@@ -45,8 +45,7 @@ router.post("/signup", async (req,res) => {
 
     res.status(200).json({
         message:`Welcome to Paytm ${user.firstName}`,
-        token: token
-
+        token: toke
     });
 })
 
@@ -106,28 +105,39 @@ router.put("", authMiddleware, async (req, res) => {
 
 router.get("/bulk", authMiddleware, async (req, res) => {
     const name = req.query.filter || "";
-    console.log(name);
     const users = await User.find({
         $or: [{
             firstName:{
-                $regex : name,
+                $regex : name
             }
         },{
             lastName: {
-                $regex: name,
+                $regex: name
             }
         }
         ]
         
     })
-
     res.status(200).json({
             users : users.map((user) => {return {
-                
+                username: user.username,
                 firstName: user.firstName,
                 lastName:  user.lastName,
                 _id : user._id
             }})
+    })
+})
+
+router.get("/info", authMiddleware, async (req, res) => {
+    const userId = req.userId;
+    const user = await User.findOne({
+        _id: userId
+    })
+    console.log(user);
+    res.status(200).json({
+        username : user.username,
+        firstname: user.firstName,
+        lastname: user.lastName 
     })
 })
 
