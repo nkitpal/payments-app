@@ -41,7 +41,7 @@ router.post("/signup", async (req,res) => {
         balance : 1 + Math.random()*1000,
     })
 
-    const token = jwt.sign({userId}, JWT_SECRET);
+    const token = jwt.sign({userId}, process.env.J||JWT_SECRET);
 
     res.status(200).json({
         message:`Welcome to Paytm ${user.firstName}`,

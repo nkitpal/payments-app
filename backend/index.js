@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mainRouter =require("./routes/index")
-const {JWT_SECRET} = require("./config")
 
 const app = express();
 

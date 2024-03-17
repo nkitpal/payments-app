@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const {MONGO_URL} =  require('./config')
-mongoose.connect("mongodb+srv://anki:JJ0E3gg9jfafTknE@cluster0.4g2czen.mongodb.net/paytm");
+
+mongoose.connect(process.env.MONGO_URL || "mongodb+srv://anki:JJ0E3gg9jfafTknE@cluster0.4g2czen.mongodb.net/paytm");
 
 const userSchema = mongoose.Schema({
     username: {
